@@ -37,6 +37,7 @@ exports.create = (req, res, next) => {
 
 exports.findAll = (req, res, next) => {
     var model = {
+        bookIds: req.query.bookIds,
         bookTitle: req.query.bookTitle,
         categoryId: req.query.categoryId,
         pageSize: req.query.pageSize,

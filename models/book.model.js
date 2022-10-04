@@ -42,6 +42,12 @@ const book = mongoose.model(
                 type: String,
                 default: "IN",
             },
+            relatedBooks: [
+                {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "RelatedBook",
+                },
+            ],
         },
         {
             toJSON: {

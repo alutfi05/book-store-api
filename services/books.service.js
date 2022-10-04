@@ -48,6 +48,12 @@ const getBooks = async (params, callback) => {
         condition["category"] = categoryId;
     }
 
+    if (params.bookIds) {
+        condition["_id"] = {
+            $in: params.bookIds.split(","),
+        };
+    }
+
     let perPage = Math.abs(params.pageSize) || MONGO_DB_CONFIG.PAGE_SIZE;
     let page = (Math.abs(params.page) || 1) - 1;
 
@@ -57,10 +63,19 @@ const getBooks = async (params, callback) => {
     )
         .sort(params.sort)
         .populate("category", "categoryName categoryImage")
+        .populate("relatedBooks", "relatedBook")
         .limit(perPage)
         .skip(perPage * page)
         .then((response) => {
-            return callback(null, response);
+            var res = response.map((r) => {
+                if (r.relatedBooks.length > 0) {
+                    r.relatedBooks = r.relatedBooks.map((x) => x.relatedBook);
+                }
+
+                return r;
+            });
+
+            return callback(null, res);
         })
         .catch((error) => {
             return callback(error);
@@ -72,7 +87,12 @@ const getBookById = async (params, callback) => {
 
     book.findById(bookId)
         .populate("category", "categoryName categoryImage")
+        .populate("relatedBooks", "relatedBook")
         .then((response) => {
+            response.relatedBooks = response.relatedBooks.map((x) => {
+                return x.relatedBook;
+            });
+
             return callback(null, response);
         })
         .catch((error) => {

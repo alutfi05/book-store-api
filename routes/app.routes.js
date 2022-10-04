@@ -2,6 +2,8 @@ const categoryController = require("../controllers/categories.controller");
 const bookController = require("../controllers/books.controller");
 const userController = require("../controllers/users.controller");
 const sliderController = require("../controllers/slider.controller");
+const relatedBookController = require("../controllers/related-book.controller");
+
 const express = require("express");
 const router = express.Router();
 
@@ -25,5 +27,8 @@ router.delete("/slider/:id", sliderController.delete);
 
 router.post("/register", userController.register);
 router.post("/login", userController.login);
+
+router.post("/relatedBook", relatedBookController.create);
+router.delete("/relatedBook/:id", relatedBookController.delete);
 
 module.exports = router;
