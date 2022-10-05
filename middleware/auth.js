@@ -2,15 +2,20 @@ const jwt = require("jsonwebtoken");
 
 const TOKEN_KEY = "RANDOM_KEY";
 
-const authenticationToken = (req, res, next) => {
+const authenticateToken = (req, res, next) => {
     const authHeader = req.headers["authorization"];
-    const token = authHeader && authHeader.split(" ")[1];
+    // const token = authHeader && authHeader.split(" ")[1];
+    // console.log(authHeader);
 
-    if (token == null) return res.sendStatus(401);
+    // if (token == null) return res.sendStatus(401);
 
-    jwt.verify(token, TOKEN_KEY, (err, user) => {
-        if (err) return res.sendStatus(403);
-        req.user = user;
+    if (!authHeader) {
+        return res.status(403).send({ message: "No Token Provided!" });
+    }
+
+    jwt.verify(authHeader, TOKEN_KEY, (err, user) => {
+        if (err) return res.status(401).send({ message: "Unauthorized!" });
+        req.user = user.data;
         next();
     });
 };
@@ -21,4 +26,4 @@ const generateAccessToken = (userModel) => {
     });
 };
 
-module.exports = { authenticationToken, generateAccessToken };
+module.exports = { authenticateToken, generateAccessToken };

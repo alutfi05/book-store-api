@@ -59,7 +59,7 @@ const getBooks = async (params, callback) => {
 
     book.find(
         condition,
-        "bookId bookTitle bookShortDescription bookPrice bookSalePrice bookImage bookType stockStatus createdAt updatedAt"
+        "bookId bookTitle bookShortDescription bookSynopsis bookPrice bookSalePrice bookImage bookType stockStatus createdAt updatedAt"
     )
         .sort(params.sort)
         .populate("category", "categoryName categoryImage")
