@@ -3,4 +3,10 @@ const MONGO_DB_CONFIG = {
     PAGE_SIZE: 10,
 };
 
-module.exports = { MONGO_DB_CONFIG };
+const STRIPE_CONFIG = {
+    STRIPE_KEY:
+        "sk_test_51LpnCUELC17kV4b6X4sXtwAThnTxkv8BGB2fEawlSANVzzF760CmuBxXYMwf7CQ0gTqijItCv9yRCWMxKRVxeQ1p00pXsuMck7",
+    CURRENCY: "IDR",
+};
+
+module.exports = { MONGO_DB_CONFIG, STRIPE_CONFIG };

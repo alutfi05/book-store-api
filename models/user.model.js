@@ -17,6 +17,9 @@ const user = mongoose.model(
                 type: String,
                 required: true,
             },
+            stripeCustomerID: {
+                type: String,
+            },
         },
         {
             toJSON: {
