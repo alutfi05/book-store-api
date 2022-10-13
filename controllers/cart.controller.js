@@ -21,7 +21,7 @@ exports.create = (req, res, next) => {
 exports.findAll = (req, res, next) => {
     cartService.getCart({ userId: req.user.userId }, (error, results) => {
         if (error) {
-            next(error);
+            return next(error);
         }
 
         return res.status(200).send({
