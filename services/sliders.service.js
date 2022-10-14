@@ -29,7 +29,7 @@ const getSliders = async (params, callback) => {
     let page = (Math.abs(params.page) || 1) - 1;
 
     slider
-        .find(condition, "sliderName sliderImage")
+        .find(condition, "sliderName sliderImage sliderDescription")
         .limit(perPage)
         .skip(perPage * page)
         .then((response) => {
